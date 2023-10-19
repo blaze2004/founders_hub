@@ -2,9 +2,7 @@ import Hero from '@/components/index/hero';
 
 const Home=() => {
   return (
-    <main
-      className={'flex min-h-screen flex-col items-center justify-between p-24'}
-    >
+    <main className='flex w-full flex-col items-center py-32 min-h-screen'>
       <Hero />
     </main>
   )

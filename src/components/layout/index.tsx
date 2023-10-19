@@ -21,7 +21,7 @@ const IndexLayout=({ children }: CustomComponentProps) => {
         <link rel='apple-touch-icon' href='/logo.png' />
       </Head>
       <Header />
-      <div className='w-full py-5 text-center self-end'>
+      <div>
         {children}
       </div>
       <Footer />
