@@ -64,7 +64,7 @@ const Hero=() => {
         The Founders Hub is a volunteer-driven community of startup enthusiasts and entrepreneurs who are passionate about creating an impact and fostering collective growth
       </p>
 
-      <div className="flex items-center gap-5 justify-between w-full max-w-screen-md my-16">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-screen-md my-16">
         {
           features.map((feature, index) => (
             <FeatureCard
@@ -77,7 +77,7 @@ const Hero=() => {
         }
       </div>
 
-      <div className='flex flex-col sm:flex-row sm:space-x-4 gap-4 w-full max-w-screen-sm'>
+      <div className='flex flex-col sm:flex-row sm:space-x-4 sm:w-full space-y-4 sm:space-y-0 max-w-screen-sm p-4'>
         <input
           type='email'
           placeholder='Enter your email'
