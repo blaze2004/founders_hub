@@ -26,9 +26,9 @@ const Header=() => {
 
   return (
     <div
-      className={`fixed top-0 w-full ${isScrolled
-        ? 'border-b border-black-100 bg-white/50 dark:bg-black/50'
-        :'bg-white/0'} z-30 transition-all`}
+      className={`fixed top-0 w-full bg-black ${isScrolled
+        ? 'border-b border-black-100 '
+        :'bg-white/0'} z-30 transition-all text-white`}
     >
       <div className='mx-5 flex h-16 max-w-screen-xl items-center justify-between xl:mx-auto'>
         <Link className='flex items-center font-display text-2xl' href='/'>
@@ -41,8 +41,8 @@ const Header=() => {
             width={45}
             style={{ color: 'transparent' }}
           />
-          <p className='font-display text-2xl font-bold drop-shadow-sm md:text-3xl text-black dark:text-white'>
-                        Founder&apos; Hub
+          <p className='font-display text-2xl font-bold drop-shadow-sm md:text-3xl'>
+            Founder&apos; Hub
           </p>
         </Link>
 

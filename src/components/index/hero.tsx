@@ -56,11 +56,11 @@ const Hero=() => {
         Join the World&apos;s Most
       </h1>
       <h1
-        className='bg-gradient-to-br from-blue-400 via-purple-500 to-red-600 mb-4 bg-clip-text py-4 text-center font-display text-4xl font-bold text-transparent drop-shadow-sm md:text-7xl gradient_text'
+        className='bg-gradient-to-br from-blue-400 via-purple-500 to-red-600 mb-4 bg-clip-text py-4 text-center font-display text-4xl font-bold text-transparent drop-shadow-sm md:text-7xl'
       >
         Passionate Startup Community
       </h1>
-      <p className="max-w-screen-md text-center text-gray-500 dark:text-gray-300">
+      <p className="max-w-screen-md text-center text-gray-300">
         The Founders Hub is a volunteer-driven community of startup enthusiasts and entrepreneurs who are passionate about creating an impact and fostering collective growth
       </p>
 

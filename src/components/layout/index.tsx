@@ -5,7 +5,7 @@ import Head from 'next/head';
 
 const IndexLayout=({ children }: CustomComponentProps) => {
   return (
-    <div className='dark:bg-black'>
+    <div className='dark:bg-black-800'>
       <Head>
         <title>Founder&apos;s Hub</title>
         <meta
