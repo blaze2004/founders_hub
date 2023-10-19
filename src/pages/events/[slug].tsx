@@ -1,5 +1,5 @@
 import { Event } from '@/types';
-import { GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 const EventInfo=({ title, description, speaker, speakerInfo, eventInfo, eventVideo }: Event) => {
   return (
@@ -7,6 +7,15 @@ const EventInfo=({ title, description, speaker, speakerInfo, eventInfo, eventVid
       Hi
     </div>
   );
+}
+
+export const getStaticPaths: GetStaticPaths=async () => { 
+  return {
+    paths: [
+
+    ],
+    fallback: true,
+  };
 }
 
 export const getStaticProps: GetStaticProps=async () => {
