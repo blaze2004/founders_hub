@@ -28,7 +28,7 @@ const BecomeMentor = () => {
           </div>
           <div className="flex flex-row flex-wrap gap-2 pt-4">
             <button className="bg-black hover:bg-white hover:text-black border border-black text-white font-bold py-2 px-6 rounded-full">
-              Find a Mentor
+              Become a Mentor
             </button>
           </div>
         </div>
