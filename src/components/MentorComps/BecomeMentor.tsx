@@ -2,7 +2,7 @@ import React from 'react'
 
 const BecomeMentor = () => {
   return (
-    <div className="flex flex-col p-4 justify-center items-center bg-white">
+    <div id="become-a-mentor" className="flex flex-col p-4 justify-center items-center bg-white">
       <div className="text-black p-4">
         <h1 className="text-center font-display text-4xl font-bold drop-shadow-sm md:text-6xl">
           Become a{' '}

@@ -19,12 +19,12 @@ const Hero = () => {
           </p>
           {/* Buttons */}
           <div className='flex flex-row flex-wrap gap-2'>
-            <button className="bg-white hover:bg-black hover:text-white border border-white text-black font-bold py-2 px-6 rounded-full">
+            <a className="bg-white hover:bg-black hover:text-white border border-white text-black font-bold py-2 px-6 rounded-full" href="#find-a-mentor">
               Find a Mentor
-            </button>
-            <button className="bg-black-500 border border-white hover:bg-white hover:text-black text-white font-bold py-2 px-6 rounded-full">
+            </a>
+            <a className="bg-black-500 border border-white hover:bg-white hover:text-black text-white font-bold py-2 px-6 rounded-full" href="#become-a-mentor">
               Become a Mentor
-            </button>
+            </a>
           </div>
         </div>
         {/* right */}
