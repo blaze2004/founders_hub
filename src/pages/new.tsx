@@ -35,7 +35,7 @@ const CreateContent=() => {
   const [category, setCategory]=useState<Feed['category']>(Category.Idea);
   const [title, setTitle]=useState<Feed['title']>('');
   const [content, setContent]=useState<Feed['content']>({});
-  const [tags, setTags]=useState<Feed['tags']>([]);
+  const [tags, setTags]=useState<string[]>([]);
   const [isloading, setIsLoading]=useState<boolean>(false);
   const [snackbar, setSnackbar]=useState<SnackbarProps&{ show: boolean }>({ message: '', type: 'success', show: false });
 
@@ -102,7 +102,7 @@ const CreateContent=() => {
       const { error }=await supabase.from('Feed').insert({
         title: title,
         content: content,
-        tags: tags,
+        tags: tags as Feed['tags'],
         category: category as string,
         author: session?.user.id!,
       });
@@ -182,7 +182,7 @@ const CreateContent=() => {
                                 <h3 className="text-sm font-medium p-3 mt-4">
                                   {field.title}
                                 </h3>
-                                <TagsInput value={field.value} onChange={field.setValue} />
+                                <TagsInput value={field.value as string[]} onChange={field.setValue} />
                               </>):(
                               <FormInputField key={idx} {...field} />
                             )

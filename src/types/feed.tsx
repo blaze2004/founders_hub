@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { Database } from './database.types';
+import { Database, Json } from './database.types';
 
 export interface FeedItem {
     type: string;
@@ -28,7 +28,7 @@ export enum InputType {
     Tags='tags',
 }
 export interface FormInputField {
-    value: Feed['author']|Feed['category']|Feed['content']|Feed['tags']|Feed['title']|Profile['bio']|Profile['full_name']|Profile['avatar_url'];
+    value: Feed['author']|Feed['category']|Feed['content']|Feed['tags']|Feed['title']|Profile['bio']|Profile['full_name']|Profile['avatar_url']|string[]|string;
     setValue: Dispatch<SetStateAction<any>>;
     title: string;
     palceholder: string;
@@ -38,8 +38,8 @@ export interface FormInputField {
 export interface EditorProps {
     editMode: boolean;
     title: string;
-    defaultContent: object;
-    setValue: Dispatch<SetStateAction<object>>;
+    defaultContent: Json;
+    setValue: Dispatch<SetStateAction<Json>>;
 }
 
 export type Feed=Database['public']['Tables']['Feed']['Row'];

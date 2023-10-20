@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { Editor as NovelEditor } from 'novel';
 import { EditorProps } from '@/types/feed';
+import { JSONContent } from '@tiptap/react';
 
 const InteractiveEditor=({ editMode, defaultContent, setValue, title }: EditorProps) => {
 
@@ -15,7 +15,7 @@ const InteractiveEditor=({ editMode, defaultContent, setValue, title }: EditorPr
         }}
         onDebouncedUpdate={() => {
         }}
-        defaultValue={defaultContent}
+        defaultValue={defaultContent as JSONContent}
         editorProps={
           { editable: () => editMode }
         }
