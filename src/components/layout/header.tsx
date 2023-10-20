@@ -37,13 +37,13 @@ const Header=() => {
             alt='Founders Hub logo'
             src='/logo.png'
             className='mr-2 rounded-lg'
-            height={45}
-            width={45}
+            height={50}
+            width={220}
             style={{ color: 'transparent' }}
           />
-          <p className='font-display text-2xl font-bold drop-shadow-sm md:text-3xl'>
+          {/* <p className='font-display text-2xl font-bold drop-shadow-sm md:text-3xl'>
             Founder&apos; Hub
-          </p>
+          </p> */}
         </Link>
 
         <div className='flex items-center justify-center'>

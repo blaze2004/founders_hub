@@ -12,3 +12,11 @@ Team Name: Codex
 | Nikhil Sharma      | CIOT    | 2nd Year |
 | Abhinav gusain     | CIOT    | 2nd Year |
 | Nitin Rana         | CIOT    | 2nd Year |
+
+## Setup
+- Install dependencies
+```pnpm```
+- Create env file
+```cp .example.env.local .env.local```
+- Do changes and run the development server
+```pnpm dev```
