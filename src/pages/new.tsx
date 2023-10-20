@@ -5,27 +5,10 @@ import { Category, Feed, FormInputField, InputType, NewFeedItemCreateType } from
 import InteractiveEditor from '@/components/feed/editor';
 import TagsInput from 'react-tagsinput'
 import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
-import { Database, Json } from '@/types/database.types';
+import { Database } from '@/types/database.types';
 import { SnackbarProps } from '@/types';
 import Snackbar from '@/components/snackbar';
-
-const FormInputField=({ value, setValue, title, palceholder }: FormInputField) => {
-
-  return (
-    <div className="relative rounded-md">
-      <h3 className="text-sm font-medium p-3">
-        {title}
-      </h3>
-      <input
-        type="text"
-        className="w-full rounded-md p-3 ring-1 ring-gray-200 dark:ring-white focus:outline-none"
-        placeholder={palceholder}
-        value={value as string}
-        onChange={(e) => setValue(e.target.value)}
-      />
-    </div>
-  );
-}
+import { FormInputFieldComponent } from '@/components/form';
 
 const CreateContent=() => {
 
@@ -34,6 +17,7 @@ const CreateContent=() => {
 
   const [category, setCategory]=useState<Feed['category']>(Category.Idea);
   const [title, setTitle]=useState<Feed['title']>('');
+  const [description, setDescription]=useState<Feed['description']>('');
   const [content, setContent]=useState<Feed['content']>({});
   const [tags, setTags]=useState<string[]>([]);
   const [isloading, setIsLoading]=useState<boolean>(false);
@@ -46,6 +30,14 @@ const CreateContent=() => {
     setValue: setTitle,
     inputType: InputType.Text,
   };
+
+  const descriptionField: FormInputField={
+    title: 'Description',
+    palceholder: 'Type description',
+    value: description,
+    setValue: setDescription,
+    inputType: InputType.Text,
+  }
 
   const contentField: FormInputField={
     title: 'Content',
@@ -68,6 +60,7 @@ const CreateContent=() => {
       title: Category.Event,
       fields: [
         titleField,
+        descriptionField,
         contentField,
         tagsField,
       ],
@@ -76,6 +69,7 @@ const CreateContent=() => {
       title: Category.Idea,
       fields: [
         titleField,
+        descriptionField,
         contentField,
         tagsField,
       ],
@@ -84,6 +78,7 @@ const CreateContent=() => {
       title: Category.Resource,
       fields: [
         titleField,
+        descriptionField,
         contentField,
         tagsField,
       ],
@@ -92,7 +87,7 @@ const CreateContent=() => {
 
   const handlePost=async () => {
 
-    if (!title||!content||!tags||!category) {
+    if (!title||!content||!tags||!category||!description) {
       return;
     }
 
@@ -105,6 +100,7 @@ const CreateContent=() => {
         tags: tags as Feed['tags'],
         category: category as string,
         author: session?.user.id!,
+        description: description,
       });
 
       if (error) {
@@ -135,7 +131,7 @@ const CreateContent=() => {
   }
 
   return (
-    <div className='p-8 min-h-screen'>
+    <div className='p-8 min-h-screen mt-4'>
       {
         snackbar.show&&(<Snackbar message={snackbar.message} type={snackbar.type} />)
       }
@@ -184,7 +180,7 @@ const CreateContent=() => {
                                 </h3>
                                 <TagsInput value={field.value as string[]} onChange={field.setValue} />
                               </>):(
-                              <FormInputField key={idx} {...field} />
+                              <FormInputFieldComponent key={idx} {...field} />
                             )
                           )
                       ))

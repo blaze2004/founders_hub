@@ -12,27 +12,33 @@ export interface Database {
       Feed: {
         Row: {
           author: string | null
+          banner: string | null
           category: string | null
           content: Json | null
           created_at: string
+          description: string | null
           id: number
           tags: string[] | null
           title: string | null
         }
         Insert: {
           author?: string | null
+          banner?: string | null
           category?: string | null
           content?: Json | null
           created_at?: string
+          description?: string | null
           id?: number
           tags?: string[] | null
           title?: string | null
         }
         Update: {
           author?: string | null
+          banner?: string | null
           category?: string | null
           content?: Json | null
           created_at?: string
+          description?: string | null
           id?: number
           tags?: string[] | null
           title?: string | null

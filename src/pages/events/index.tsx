@@ -1,5 +1,5 @@
 const EventsPage=() => {
-  return <div>Events Page</div>
+  return <div className="min-h-screen">Events Page</div>
 }
 
 export default EventsPage;
