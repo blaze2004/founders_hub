@@ -1,8 +1,8 @@
 import React from 'react'
-import Hero from './MentorComps/hero'
-import ChooseUs from './MentorComps/ChooseUs'
-import BecomeMentor from './MentorComps/BecomeMentor'
-import FindMentor from './MentorComps/FindMentor'
+import Hero from '../../components/MentorComps/hero'
+import ChooseUs from '../../components/MentorComps/ChooseUs'
+import BecomeMentor from '../../components/MentorComps/BecomeMentor'
+import FindMentor from '../../components/MentorComps/FindMentor'
 
 const index = () => {
   return (
