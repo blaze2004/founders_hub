@@ -36,7 +36,8 @@ const IndexLayout=({ children }: CustomComponentProps) => {
         <div className='w-full h-full overflow-y-scroll'>
           {(isDrawerOpen&&session)&&(<Drawer setIsDrawerOpen={setIsDrawerOpen} />)}
           <Header setIsDrawerOpen={setIsDrawerOpen} />
-          <div className='w-full grow p-8 pt-16'>
+          <div className='w-full h-16 bg-black' />
+          <div className='w-full grow'>
             {children}
           </div>
           <Footer />

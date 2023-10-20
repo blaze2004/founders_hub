@@ -34,7 +34,7 @@ const Header=({ setIsDrawerOpen }: Headerprops) => {
     <div
       className={`fixed top-0 w-full bg-black ${isScrolled||session
         ? 'border-b border-black-100 '
-        :'bg-white/0'} z-30 transition-all text-white`}
+        :''} z-30 transition-all text-white`}
     >
       {
         session? (
@@ -46,7 +46,7 @@ const Header=({ setIsDrawerOpen }: Headerprops) => {
               <BiMenu />
             </button>
             <button
-              className='flex items-center space-x-2 button-small my-2'
+              className='flex items-center space-x-2 button-small my-4'
               onClick={() => router.push('/new')}
             >
               <BiPlus />
