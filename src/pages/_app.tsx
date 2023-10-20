@@ -8,6 +8,7 @@ import { ThemeProvider } from 'next-themes'
 import IndexLayout from '@/components/layout'
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
+import { Database } from '@/types/database.types'
 
 export default function App({
   Component,
@@ -17,7 +18,7 @@ export default function App({
 }>) {
   const router=useRouter()
   const [isLoading, setIsLoading]=useState(false);
-  const [supabaseClient]=useState(() => createPagesBrowserClient())
+  const [supabaseClient]=useState(() => createPagesBrowserClient<Database>())
 
   useEffect(() => {
     const handleStart=() => setIsLoading(true)
