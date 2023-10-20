@@ -11,9 +11,11 @@ const InteractiveEditor=({ editMode, defaultContent, setValue, title }: EditorPr
       </h3>
       <NovelEditor
         className="relative min-h-[500px] w-full border-stone-200 mb-4 sm:rounded-lg sm:border sm:shadow-lg"
-        onUpdate={() => {
+        onUpdate={(editor) => {
+          setValue(editor!.getJSON());
         }}
-        onDebouncedUpdate={() => {
+        onDebouncedUpdate={(editor) => {
+          setValue(editor!.getJSON());
         }}
         defaultValue={defaultContent as JSONContent}
         editorProps={

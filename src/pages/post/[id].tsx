@@ -2,7 +2,7 @@ import InteractiveEditor from '@/components/feed/editor';
 import { Database } from '@/types/database.types';
 import { FeedItem } from '@/types/feed';
 import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 
 const Post=({ category, title, tags, content }: FeedItem) => {
   return (
@@ -28,26 +28,26 @@ const Post=({ category, title, tags, content }: FeedItem) => {
   );
 }
 
-export const getStaticPaths: GetStaticPaths=async () => {
-  const supabase=createPagesBrowserClient<Database>();
+// export const getStaticPaths: GetStaticPaths=async () => {
+//   const supabase=createPagesBrowserClient<Database>();
 
-  const { data, error }=await supabase.from('Feed').select('*')
-    .limit(10);
+//   const { data, error }=await supabase.from('Feed').select('*')
+//     .limit(10);
 
-  if (error||!data) {
-    return {
-      paths: [],
-      fallback: true,
-    }
-  }
+//   if (error||!data) {
+//     return {
+//       paths: [],
+//       fallback: true,
+//     }
+//   }
 
-  return {
-    paths: data.map((item) => ({ params: { id: `${item.id}` } })),
-    fallback: true,
-  };
-}
+//   return {
+//     paths: data.map((item) => ({ params: { id: `${item.id}` } })),
+//     fallback: true,
+//   };
+// }
 
-export const getStaticProps: GetStaticProps=async ({ params }) => {
+export const getServerSideProps: GetServerSideProps=async ({ params }) => {
 
   const supabase=createPagesBrowserClient<Database>();
   const slug=params?.id;
