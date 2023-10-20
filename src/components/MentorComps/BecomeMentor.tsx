@@ -5,7 +5,7 @@ const BecomeMentor = () => {
     <div className="flex flex-col p-4 justify-center items-center bg-white">
       <div className="text-black p-4">
         <h1 className="text-center font-display text-4xl font-bold drop-shadow-sm md:text-6xl">
-          Become a{" "}
+          Become a{' '}
           <span className="bg-gradient-to-br from-blue-400 via-purple-500 to-red-600 mb-4 bg-clip-text text-center font-display font-bold text-transparent drop-shadow-sm">
             Mentor
           </span>
@@ -24,7 +24,7 @@ const BecomeMentor = () => {
           </div>
           <div className="flex flex-col gap-2">
             <h1 className="text-2xl font-bold">Careers</h1>
-            <p className="text-xs">Help flourishing Individual's careers</p>
+            <p className="text-xs">Help flourishing Individual&apos;s careers</p>
           </div>
           <div className="flex flex-row flex-wrap gap-2 pt-4">
             <button className="bg-black hover:bg-white hover:text-black border border-black text-white font-bold py-2 px-6 rounded-full">

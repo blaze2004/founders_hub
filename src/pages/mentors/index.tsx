@@ -7,10 +7,10 @@ import FindMentor from '../../components/MentorComps/FindMentor'
 const index = () => {
   return (
     <div>
-        <Hero />
-        <ChooseUs />
-        <FindMentor />
-        <BecomeMentor />
+      <Hero />
+      <ChooseUs />
+      <FindMentor />
+      <BecomeMentor />
     </div>
   )
 }

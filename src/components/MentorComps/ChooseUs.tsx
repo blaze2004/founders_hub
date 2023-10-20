@@ -3,12 +3,12 @@ import React from 'react'
 const ChooseUs = () => {
   return (
     <div className="flex flex-col p-4 justify-center items-center bg-white">
-        <div className='text-black p-4'>
-            <h1 className='text-center font-display text-4xl font-bold drop-shadow-sm md:text-6xl'>
-                Why Choose {" "} 
-                <span className='bg-gradient-to-br from-blue-400 via-purple-500 to-red-600 mb-4 bg-clip-text text-center font-display font-bold text-transparent drop-shadow-sm'>Us</span>
-            </h1>
-        </div>
+      <div className='text-black p-4'>
+        <h1 className='text-center font-display text-4xl font-bold drop-shadow-sm md:text-6xl'>
+                Why Choose {' '} 
+          <span className='bg-gradient-to-br from-blue-400 via-purple-500 to-red-600 mb-4 bg-clip-text text-center font-display font-bold text-transparent drop-shadow-sm'>Us</span>
+        </h1>
+      </div>
       <div className="bg-white flex flex-row w-[70%]">
         {/* Left */}
         <div className="w-1/2 text-black flex flex-col justify-center gap-8">

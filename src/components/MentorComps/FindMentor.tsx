@@ -5,7 +5,7 @@ const FindMentor = () => {
     <div className="bg-black flex flex-col p-4 py-10 justify-center items-center">
       <div className="text-white p-4">
         <h1 className="text-center font-display text-4xl font-bold drop-shadow-sm md:text-6xl">
-          Find a{" "}
+          Find a{' '}
           <span className="bg-gradient-to-br from-blue-400 via-purple-500 to-red-600 mb-4 bg-clip-text text-center font-display font-bold text-transparent drop-shadow-sm">
             Mentor
           </span>
