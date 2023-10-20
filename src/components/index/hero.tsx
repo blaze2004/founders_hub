@@ -5,6 +5,8 @@ import mentors from '@/assets/images/mentors.svg';
 import events from '@/assets/images/events.svg';
 import grants from '@/assets/images/grants.svg';
 import resources from '@/assets/images/resources.png';
+import { useState } from 'react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 
 const FeatureCard=({ title, icon, link }: FeatureCardProps) => {
   const router=useRouter();
@@ -25,6 +27,12 @@ const FeatureCard=({ title, icon, link }: FeatureCardProps) => {
 }
 
 const Hero=() => {
+
+  const [email, setEmail]=useState<string>('');
+  const [error, setError]=useState<string>('');
+  const [message, setMessage]=useState<string>('');
+  const [loading, setLoading]=useState<boolean>(false);
+
   const features: FeatureCardProps[]=[
     {
       title: 'Mentors',
@@ -47,6 +55,30 @@ const Hero=() => {
       link: '/grants'
     }
   ];
+
+  const supabase=useSupabaseClient();
+
+  const handleAuth=async () => {
+    setLoading(true);
+    if (email&&email.length>0) {
+      try {
+        const { data, error }=await supabase.auth.signInWithOtp({ email: email });
+        if (error) {
+          setError(error.message);
+          setMessage('');
+        } else {
+          console.log(data);
+          setMessage('Check your email for the magic link.');
+          setError('');
+        }
+      } catch (error) {
+        console.log(error);
+        setError('Something went wrong. Please try again later.');
+        setMessage('');
+      }
+    }
+    setLoading(false);
+  }
 
   return (
     <div className="flex flex-col items-center max-w-screen-xl">
@@ -81,14 +113,33 @@ const Hero=() => {
         <input
           type='email'
           placeholder='Enter your email'
-          className='w-full px-4 py-2 rounded-md focus:outline-none ring-2 ring-purple-600 focus:border-transparent'
+          onChange={(e) => setEmail(e.target.value)}
+          className='w-full px-4 py-2 rounded-md focus:outline-none ring-2 ring-purple-600 text-black dark:text-white focus:border-transparent'
         />
         <button
           className='button-large'
+          onClick={handleAuth}
+          disabled={loading}
         >
-          Join&nbsp;Now
+          {
+            loading? (
+              <svg className="w-5 h-5 mr-3 -ml-1 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path className="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+              </svg>
+            ):
+              <p>Get&nbsp;Started</p>
+          }
         </button>
       </div>
+
+      <div className={`text-center ${message.length>0? '':'text-red-500'}`}>
+        <p>{error||message}</p>
+      </div>
+
     </div>
   );
 }
