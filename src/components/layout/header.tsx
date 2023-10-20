@@ -32,7 +32,7 @@ const Header=({ setIsDrawerOpen }: Headerprops) => {
 
   return (
     <div
-      className={`fixed top-0 w-full bg-black ${isScrolled||session
+      className={`fixed top-0 w-full bg-black pb-2 ${session&&'bg-white dark:bg-black border-l border-black-100'} ${isScrolled||session
         ? 'border-b border-black-100 '
         :''} z-30 transition-all text-white`}
     >

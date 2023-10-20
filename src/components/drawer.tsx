@@ -6,6 +6,7 @@ import ThemeSelector from './layout/theme_chooser';
 import { IoLogOut } from 'react-icons/io5';
 import { FaCalendar, FaHome, FaUser } from 'react-icons/fa';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { Database } from '@/types/database.types';
 
 const NavbarItem=({ title, route, icon }: NavBarItem) => {
   const router=useRouter();
@@ -42,7 +43,7 @@ const SideNavbar=() => {
     },
   ];
 
-  const supabase=useSupabaseClient();
+  const supabase=useSupabaseClient<Database>();
   const router=useRouter();
 
   const handleLogout=async () => {
@@ -51,7 +52,7 @@ const SideNavbar=() => {
   }
 
   return (
-    <div className="p-4 ring-1 ring-black dark:ring-white h-screen w-56 flex flex-col justify-between dark:bg-black">
+    <div className="p-4 ring-1 ring-gray-200 dark:ring-white h-screen w-56 flex flex-col justify-between dark:bg-black">
       <div>
         <Link className='flex items-center font-display text-2xl mb-8' href='/'>
           <Image

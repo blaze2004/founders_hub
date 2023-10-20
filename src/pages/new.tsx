@@ -1,9 +1,16 @@
+import 'react-tagsinput/react-tagsinput.css'
 import { useState } from 'react'
 import { Tab } from '@headlessui/react'
-import { Category, FormInputField, NewFeedItemCreateType } from '@/types/feed'
-
+import { Category, Feed, FormInputField, InputType, NewFeedItemCreateType } from '@/types/feed'
+import InteractiveEditor from '@/components/feed/editor';
+import TagsInput from 'react-tagsinput'
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { Database, Json } from '@/types/database.types';
+import { SnackbarProps } from '@/types';
+import Snackbar from '@/components/snackbar';
 
 const FormInputField=({ value, setValue, title, palceholder }: FormInputField) => {
+
   return (
     <div className="relative rounded-md">
       <h3 className="text-sm font-medium p-3">
@@ -11,9 +18,9 @@ const FormInputField=({ value, setValue, title, palceholder }: FormInputField) =
       </h3>
       <input
         type="text"
-        className="w-full rounded-md p-3"
+        className="w-full rounded-md p-3 ring-1 ring-gray-200 dark:ring-white focus:outline-none"
         placeholder={palceholder}
-        value={value}
+        value={value as string}
         onChange={(e) => setValue(e.target.value)}
       />
     </div>
@@ -22,84 +29,116 @@ const FormInputField=({ value, setValue, title, palceholder }: FormInputField) =
 
 const CreateContent=() => {
 
-  const [category, setCategory]=useState<Category>(Category.Idea);
-  const [title, setTitle]=useState<string>('');
-  const [content, setContent]=useState<object>({});
+  const supabase=useSupabaseClient<Database>();
+  const session=useSession();
+
+  const [category, setCategory]=useState<Feed['category']>(Category.Idea);
+  const [title, setTitle]=useState<Feed['title']>('');
+  const [content, setContent]=useState<Feed['content']>({});
+  const [tags, setTags]=useState<Feed['tags']>([]);
+  const [isloading, setIsLoading]=useState<boolean>(false);
+  const [snackbar, setSnackbar]=useState<SnackbarProps&{ show: boolean }>({ message: '', type: 'success', show: false });
+
+  const titleField: FormInputField={
+    title: 'Title',
+    palceholder: 'Type title',
+    value: title,
+    setValue: setTitle,
+    inputType: InputType.Text,
+  };
+
+  const contentField: FormInputField={
+    title: 'Content',
+    palceholder: 'Type content',
+    value: title,
+    setValue: setTitle,
+    inputType: InputType.TextArea,
+  };
+
+  const tagsField: FormInputField={
+    title: 'Tags',
+    palceholder: 'Add tags',
+    value: tags,
+    setValue: setTags,
+    inputType: InputType.Tags,
+  };
 
   const categories: NewFeedItemCreateType[]=[
     {
       title: Category.Event,
       fields: [
-        {
-          title: 'Title',
-          palceholder: 'Enter title',
-          value: title,
-          setValue: setTitle,
-        },
-        {
-          title: 'Content',
-          palceholder: 'Enter description',
-          value: title,
-          setValue: setTitle,
-        },
-        {
-          title: 'Tags',
-          palceholder: 'Enter tags',
-          value: title,
-          setValue: setTitle,
-        },
+        titleField,
+        contentField,
+        tagsField,
       ],
     },
     {
       title: Category.Idea,
       fields: [
-        {
-          title: 'Title',
-          palceholder: 'Enter title',
-          value: title,
-          setValue: setTitle,
-        },
-        {
-          title: 'Description',
-          palceholder: 'Enter description',
-          value: title,
-          setValue: setTitle,
-        },
-        {
-          title: 'Tags',
-          palceholder: 'Enter tags',
-          value: title,
-          setValue: setTitle,
-        },
+        titleField,
+        contentField,
+        tagsField,
       ],
     },
     {
       title: Category.Resource,
       fields: [
-        {
-          title: 'Title',
-          palceholder: 'Enter title',
-          value: title,
-          setValue: setTitle,
-        },
-        {
-          title: 'Description',
-          palceholder: 'Enter description',
-          value: title,
-          setValue: setTitle,
-        },
-        {
-          title: 'Tags',
-          palceholder: 'Enter tags',
-          value: title,
-          setValue: setTitle,
-        },
+        titleField,
+        contentField,
+        tagsField,
       ],
     }
   ];
 
+  const handlePost=async () => {
+
+    if (!title||!content||!tags||!category) {
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+
+      const { error }=await supabase.from('Feed').insert({
+        title: title,
+        content: content,
+        tags: tags,
+        category: category as string,
+        author: session?.user.id!,
+      });
+
+      if (error) {
+        setSnackbar({
+          message: 'Something unexpected happened while posting.',
+          type: 'error',
+          show: true,
+        });
+      } else {
+        setSnackbar({
+          message: 'Posted Successfully.',
+          type: 'success',
+          show: true,
+        });
+      }
+
+    } catch (error) {
+      setSnackbar({
+        message: 'Something unexpected happened while posting.',
+        type: 'error',
+        show: true,
+      });
+
+    } finally {
+      setIsLoading(false);
+    }
+
+  }
+
   return (
     <div className='p-8 min-h-screen'>
+      {
+        snackbar.show&&(<Snackbar message={snackbar.message} type={snackbar.type} />)
+      }
 
       <div className='flex justify-center items-center w-full'>
         <div className="w-full max-w-screen-lg px-2 sm:px-0">
@@ -132,15 +171,22 @@ const CreateContent=() => {
               {categories.map((category, idx) => (
                 <Tab.Panel
                   key={idx}
-                  className=''
                 >
                   <div>
                     {
                       category.fields.map((field, idx) => (
-                        <FormInputField
-                          key={idx}
-                          {...field}
-                        />
+                        field.inputType===InputType.TextArea?
+                          (<InteractiveEditor key={idx} defaultContent={content} setValue={setContent} editMode title={field.title} />):(
+                            field.inputType===InputType.Tags? (
+                              <>
+                                <h3 className="text-sm font-medium p-3 mt-4">
+                                  {field.title}
+                                </h3>
+                                <TagsInput value={field.value} onChange={field.setValue} />
+                              </>):(
+                              <FormInputField key={idx} {...field} />
+                            )
+                          )
                       ))
                     }
                   </div>
@@ -148,7 +194,18 @@ const CreateContent=() => {
               ))}
             </Tab.Panels>
           </Tab.Group>
-          <button className='button-large mt-4'>Post</button>
+          <button className='button-large mt-4' onClick={handlePost}>
+            {isloading&&(
+              <svg className="w-5 h-5 mr-3 -ml-1 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path className="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+              </svg>
+            )}
+            Post
+          </button>
         </div>
       </div>
     </div>

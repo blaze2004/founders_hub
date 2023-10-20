@@ -52,3 +52,8 @@ export interface StartupProfileProps {
     website: string;
     twitter: string;
 }
+
+export interface SnackbarProps {
+    message: string;
+    type: string;
+}
