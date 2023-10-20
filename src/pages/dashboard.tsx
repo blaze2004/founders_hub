@@ -8,7 +8,7 @@ import { GetServerSideProps } from 'next';
 const Dashboard=({ feedList }: DashboardProps) => {
   return (
     <div className='mt-4'>
-      <div className='flex justify-center min-h-screen'>
+      <div className='flex justify-center min-h-screen py-8'>
         <div className='flex items-start max-w-screen-xl space-x-4'>
           <div className='rounded-lg ring-1 ring-gray-600 dark:bg-sail-900 flex-4/5 mt-4'>
             {feedList.map((feed, key) => (
