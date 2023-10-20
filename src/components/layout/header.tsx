@@ -6,12 +6,14 @@ import { FaMoon, FaSun, FaDesktop } from 'react-icons/fa';
 import { BiMenu, BiPlus } from 'react-icons/bi';
 import { Headerprops } from '@/types';
 import { useSession } from '@supabase/auth-helpers-react';
+import { useRouter } from 'next/router';
 
 const Header=({ setIsDrawerOpen }: Headerprops) => {
 
   const [isScrolled, setIsScrolled]=useState(false);
   const { theme, setTheme }=useTheme();
   const session=useSession();
+  const router=useRouter();
 
   useEffect(() => {
     const handleScroll=() => {
@@ -45,6 +47,7 @@ const Header=({ setIsDrawerOpen }: Headerprops) => {
             </button>
             <button
               className='flex items-center space-x-2 button-small my-2'
+              onClick={() => router.push('/new')}
             >
               <BiPlus />
               <p>Create</p>

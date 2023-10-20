@@ -14,8 +14,8 @@ export const getStaticPaths: GetStaticPaths=async () => {
   // it means only events/test and events/test2 will be working
   return {
     paths: [
-      { params: { slug: 'test' } },
-      { params: { slug: 'test2' } },
+      { params: { username: 'test' } },
+      { params: { username: 'test2' } },
     ],
     fallback: true,
   };
