@@ -2,8 +2,14 @@ import { CustomComponentProps } from '@/types';
 import Footer from './footer';
 import Header from './header';
 import Head from 'next/head';
+import { useState } from 'react';
+import SideNavbar, { Drawer } from '../drawer';
+import { useSession } from '@supabase/auth-helpers-react';
 
 const IndexLayout=({ children }: CustomComponentProps) => {
+  const [isDrawerOpen, setIsDrawerOpen]=useState(false);
+  const session=useSession();
+
   return (
     <div className='dark:bg-black-800'>
       <Head>
@@ -20,11 +26,23 @@ const IndexLayout=({ children }: CustomComponentProps) => {
         <link rel='icon' type='image/x-icon' href='/favicon.ico' />
         <link rel='apple-touch-icon' href='/logo.png' />
       </Head>
-      <Header />
-      <div>
-        {children}
+
+      <div className='flex h-screen'>
+        <div className="hidden md:block">
+          {
+            session&&(<SideNavbar />)
+          }
+        </div>
+        <div className='w-full h-full overflow-y-scroll'>
+          {(isDrawerOpen&&session)&&(<Drawer setIsDrawerOpen={setIsDrawerOpen} />)}
+          <Header setIsDrawerOpen={setIsDrawerOpen} />
+          <div className='w-full h-16 bg-black' />
+          <div className='w-full grow'>
+            {children}
+          </div>
+          <Footer />
+        </div>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -1,9 +1,18 @@
 import Events from '@/components/index/events';
 import Hero from '@/components/index/hero';
 import { EventCardProps, IndexPageProps } from '@/types';
+import { useSession } from '@supabase/auth-helpers-react';
 import { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 
 const Home=({ events }: IndexPageProps) => {
+  const session=useSession();
+  const router=useRouter();
+
+  if (session) {
+    router.push('/dashboard');
+  }
+  
   return (
     <>
       <div className='flex w-full p-8 flex-col items-center py-32 bg-black text-white'>

@@ -1,8 +1,18 @@
 import { StaticImageData } from 'next/image';
-import { ReactNode } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
 export interface CustomComponentProps {
     children: ReactNode;
+}
+
+export interface NavBarItem {
+    title: string;
+    icon: ReactNode;
+    route: string;
+}
+
+export interface Headerprops {
+    setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface FeatureCardProps {
@@ -32,4 +42,13 @@ export interface Event extends EventCardProps {
     speakerInfo: string;
     eventInfo: string;
     eventVideo: string;
+}
+
+export interface StartupProfileProps {
+    name: string;
+    description: string;
+    banner: string;
+    logo: string;
+    website: string;
+    twitter: string;
 }
