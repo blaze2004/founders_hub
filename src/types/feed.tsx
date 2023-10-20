@@ -6,9 +6,10 @@ export interface FeedItem {
     title: string;
     description: string;
     image: string;
-    slug: string;
+    slug: number;
     category: string;
     tags: string[];
+    content?: Json;
 }
 
 export interface NewFeedItemCreateType {

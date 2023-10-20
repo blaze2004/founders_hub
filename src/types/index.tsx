@@ -1,5 +1,7 @@
 import { StaticImageData } from 'next/image';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { Json } from './database.types';
+import { FeedItem } from './feed';
 
 export interface CustomComponentProps {
     children: ReactNode;
@@ -56,4 +58,8 @@ export interface StartupProfileProps {
 export interface SnackbarProps {
     message: string;
     type: string;
+}
+
+export interface DashboardProps {
+    feedList: FeedItem[];
 }
